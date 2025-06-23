@@ -90,7 +90,7 @@ app.use(globalErrorHandler);
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on ${BASE_URL}${PORT}`);
+  console.log(`🚀 Server running on ${BASE_URL}`);
 });
 
 module.exports = app;

@@ -2,9 +2,9 @@ const NewCategoryModel = require('../model/newcategorydata');
 
 // Utility to generate full image URL
 const getImageUrl = (filename) => {
-  const BASE_URL = process.env.BASE_URL || 'http://localhost:';
-  const PORT = process.env.PORT || '7000';
-  return `${BASE_URL}${PORT}/uploadimage/${filename}`;
+  const BASE_URL = process.env.BASE_URL || 'http://localhost:7000';
+ 
+  return `${BASE_URL}/uploadimage/${filename}`;
 };
 
 // POST /api/newcategory/addcategory

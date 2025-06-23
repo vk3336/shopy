@@ -1,10 +1,10 @@
 const NewProductModel = require('../model/newproductdata');
 
 const getMediaUrl = (filename, type) => {
-  const BASE_URL = process.env.BASE_URL || 'http://localhost:';
-  const PORT = process.env.PORT || '7000';
+  const BASE_URL = process.env.BASE_URL || 'http://localhost:7000';
+ 
   const path = type === 'video' ? 'uploadvideo' : 'uploadimage';
-  return `${BASE_URL}${PORT}/${path}/${filename}`;
+  return `${BASE_URL}/${filename}`;
 };
 
 // CREATE

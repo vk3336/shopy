@@ -9,7 +9,7 @@ const globalErrorHandler = require('./middleware/global-error-handler');
 const { secret } = require('./config/secret');
 
 const app = express();
-
+const PORT = process.env.PORT || 7000;
 const BASE_URL = process.env.BASE_URL || 'http://localhost:7000';
 
 // Connect to database
@@ -89,8 +89,8 @@ app.use((req, res) => {
 app.use(globalErrorHandler);
 
 // Start server
-app.listen(BASE_URL, () => {
-  console.log(`🚀 Server running on ${BASE_URL}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on ${BASE_URL}${PORT}`);
 });
 
 module.exports = app;

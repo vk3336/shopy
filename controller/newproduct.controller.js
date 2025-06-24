@@ -18,6 +18,10 @@ exports.addProduct = async (req, res, next) => {
       name: req.body.name,
       newCategoryId: req.body.newCategoryId,
       productdescription:req.body.productdescription,
+      popularproduct:req.body.popularproduct,
+      productoffer:req.body.productoffer,
+      topratedproduct:req.body.topratedproduct,
+      
       image: files.image
         ? getMediaUrl(files.image[0].filename, 'image')
         : req.body.image,
@@ -132,6 +136,9 @@ exports.updateProduct = async (req, res, next) => {
       name: req.body.name,
       newCategoryId: req.body.newCategoryId,
       productdescription:req.body.productdescription, // new added product description
+      popularproduct:req.body.popularproduct,
+      productoffer:req.body.productoffer,
+      topratedproduct:req.body.topratedproduct,
       structureId: req.body.structureId,
       contentId: req.body.contentId,
       gsm: req.body.gsm,
@@ -658,5 +665,49 @@ exports.getProductsByPurchasePriceValue = async (req, res, next) => {
   } catch (error) {
     console.error('Error fetching by purchase price range:', error);
     next(error);
+  }
+};
+// ✅ GET products where all three flags are 'yes'
+const commonFilter = {
+  popularproduct: 'yes',
+ 
+};
+const commonFilter1 = {
+  
+  productoffer: 'yes',
+ 
+};
+const commonFilter2 = {
+ 
+  topratedproduct: 'yes',
+};
+
+// Get products marked as popular (but apply all three conditions)
+exports.getPopularProducts = async (req, res) => {
+  try {
+    const products = await NewProductModel.find(commonFilter);
+    res.status(200).json({ status: 1, data: products });
+  } catch (error) {
+    res.status(500).json({ status: 0, message: 'Error fetching popular products' });
+  }
+};
+
+// Get products marked as offer (but apply all three conditions)
+exports.getProductOffers = async (req, res) => {
+  try {
+    const products = await NewProductModel.find(commonFilter1);
+    res.status(200).json({ status: 1, data: products });
+  } catch (error) {
+    res.status(500).json({ status: 0, message: 'Error fetching offer products' });
+  }
+};
+
+// Get products marked as top-rated (but apply all three conditions)
+exports.getTopRatedProducts = async (req, res) => {
+  try {
+    const products = await NewProductModel.find(commonFilter2);
+    res.status(200).json({ status: 1, data: products });
+  } catch (error) {
+    res.status(500).json({ status: 0, message: 'Error fetching top-rated products' });
   }
 };

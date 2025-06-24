@@ -130,4 +130,10 @@ router.get(
   newProductController.getProductsByPurchasePriceValue,
 );
 
+// 🔥 Special tags: Popular / Offers / Top Rated
+router.get('/popular', newProductController.getPopularProducts);
+router.get('/offers', newProductController.getProductOffers);
+router.get('/toprated', newProductController.getTopRatedProducts);
+
+
 module.exports = router;

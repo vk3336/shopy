@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
+const hpp = require('hpp');
 
 const connectDB = require('./config/db');
 const globalErrorHandler = require('./middleware/global-error-handler');
@@ -17,6 +20,9 @@ connectDB();
 
 // Middleware
 app.use(cors());
+app.use(helmet());
+app.use(hpp());
+app.use(compression());
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -89,16 +95,17 @@ app.use((req, res) => {
 app.use(globalErrorHandler);
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on ${BASE_URL}`);
-}).on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use.`);
-    process.exit(1);
-  } else {
-    throw err;
-  }
-});
-
+app
+  .listen(PORT, () => {
+    console.log(`🚀 Server running on ${BASE_URL}`);
+  })
+  .on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use.`);
+      process.exit(1);
+    } else {
+      throw err;
+    }
+  });
 
 module.exports = app;
